@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 
 const config = {
-  name: 'fishing',
-  aliases: ["f"],
-  description: '',
-  usage: '',
-  cooldown: 3,
+  name: "fishing",
+  aliases: ["f","cauca","batca"],
+  description: "Mdl câu cá phiên bản beta test.",
+  usage: "<text>",
+  cooldown: 300,
   permissions: [0, 1, 2],
   credits: 'WaifuCat',
   extra: {}
@@ -42,6 +42,9 @@ export async function onCall({ message, args, data }) {
     replyMessage += `💰  Tổng tiền: ${totalAmount.toLocaleString()} coin  💰`;
 
     message.reply(replyMessage);
+
+    await Users.increaseMoney(targetID, totalAmount);
+
   } catch (error) {
     console.error(error);
     message.reply('Đã xảy ra lỗi trong quá trình câu cá!');
