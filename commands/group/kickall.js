@@ -1,23 +1,26 @@
 const config = {
     name: "flop",
-    aliases: ["kall","kickall"],
-    description: "Kick toàn bộ người dùng khỏi nhóm",
+    description: "Kick all user",
     usage: "",
     cooldown: 5,
     permissions: [1],
     credits: "WaifuCat",
 };
 
-function kickAllMembers(threadID) {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function kickAllMembers(threadID) {
     return new Promise((resolve, reject) => {
-        global.api.getThreadInfo(threadID, (err, info) => {
+        global.api.getThreadInfo(threadID, async (err, info) => {
             if (err) return reject(err);
             
             const memberIDs = info.participantIDs.filter(id => id !== global.botID);
             
             let success = 0, fail = 0;
             
-            memberIDs.forEach(async (memberID) => {
+            for (const memberID of memberIDs) {
                 try {
                     await kick(memberID, threadID);
                     success++;
@@ -29,7 +32,9 @@ function kickAllMembers(threadID) {
                 if (success + fail === memberIDs.length) {
                     resolve({ success, fail });
                 }
-            });
+                
+                await sleep(3000);
+            }
         });
     });
 }
@@ -61,3 +66,4 @@ export default {
     config,
     onCall
 };
+                
