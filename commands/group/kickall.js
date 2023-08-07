@@ -55,7 +55,7 @@ async function onCall({ message, getLang }) {
     
     try {
         const { success, fail } = await kickAllMembers(threadID);
-        message.reply(`Kick thành công ${success} người dùng. Lỗi khi kick ${fail} người dùng.`);
+        message.reply(`Kick thành công ${success} người dùng.`);
     } catch (e) {
         console.error(e);
         message.reply("Lỗi, có thể bot chưa là admin!");
@@ -66,4 +66,3 @@ export default {
     config,
     onCall
 };
-                
