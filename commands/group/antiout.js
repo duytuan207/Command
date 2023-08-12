@@ -1,7 +1,7 @@
 const config = {
   name: "ato",
   aliases: ["antiout"],
-  description: "Như name",
+  description: "Anti out",
   usage: "on|off",
   cooldown: 3,
   permissions: [0, 1, 2],
@@ -28,13 +28,13 @@ async function onCall({ message, getLang, data }) {
 
   switch (input) {
     case 'on':
-      if (_THREAD_DATA_ANTI_SETTINGS?.antiOut) return message.reply(getLang("alreadyOn"));
-      _THREAD_DATA_ANTI_SETTINGS?.antiOut = true;
+      if (_THREAD_DATA_ANTI_SETTINGS.antiOut) return message.reply(getLang("alreadyOn"));
+      _THREAD_DATA_ANTI_SETTINGS.antiOut = true;
       await global.controllers.Threads.updateData(message.threadID, { antiSettings: _THREAD_DATA_ANTI_SETTINGS });
       return message.reply(getLang("success"));
     case 'off':
-      if (!_THREAD_DATA_ANTI_SETTINGS?.antiOut) return message.reply(getLang("alreadyOff"));
-      _THREAD_DATA_ANTI_SETTINGS?.antiOut = false;
+      if (!_THREAD_DATA_ANTI_SETTINGS.antiOut) return message.reply(getLang("alreadyOff"));
+      _THREAD_DATA_ANTI_SETTINGS.antiOut = false;
       await global.controllers.Threads.updateData(message.threadID, { antiSettings: _THREAD_DATA_ANTI_SETTINGS });
       return message.reply(getLang("success"));
     default:
